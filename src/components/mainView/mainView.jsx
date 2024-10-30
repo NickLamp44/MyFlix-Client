@@ -1,58 +1,92 @@
-// main View 10.22
-
 import { useState } from "react";
-import { BookCard } from "../bookCard/bookCard";
-import { BookView } from "../BookView/bookView";
+import { MovieCard } from "../MovieCard/movieCard";
+import { MovieView } from "../MovieView/movieView";
+import { loginView } from "../LoginView/loginView";
+import { registerView } from "../RegisterView/registerView";
 
 export const MainView = () => {
-  const [books, setBooks] = useState([
+  // const url = "http://localhost:8080/movies";
+  // const [movies, setMovies] = useState([]);
+  // console.log("tEST");
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setMovies(data);
+  //     });
+  // });
+  const [movies, setMovies] = useState([
     {
       id: 1,
-      title: "Eloquent JavaScript",
+      title: "Inception",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51InjRPaF7L._SX377_BO1,204,203,200_.jpg",
-      author: "Marijn Haverbeke",
+        "https://image.tmdb.org/t/p/original/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg",
+      director: "Christopher Nolan",
+      genre: "Sci-Fi",
+      description:
+        "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
     },
     {
       id: 2,
-      title: "Mastering JavaScript Functional Programming",
+      title: "Interstellar",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51WAikRq37L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-      author: "Federico Kereki",
+        "https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+      director: "Christopher Nolan",
+      genre: "Sci-Fi",
+      description:
+        "Interstellar chronicles the adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
     },
     {
       id: 3,
-      title: "JavaScript: The Good Parts",
+      title: "The Matrix",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX381_BO1,204,203,200_.jpg",
-      author: "Douglas Crockford",
+        "https://image.tmdb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+      director: "Lana Wachowski, Lilly Wachowski",
+      genre: "Sci-Fi",
+      description:
+        "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
     },
     {
       id: 4,
-      title: "JavaScript: The Definitive Guide",
+      title: "The Godfather",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/51HbNW6RzhL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-      author: "David Flanagan",
+        "https://image.tmdb.org/t/p/original/d4KNaTrltq6bpkFS01pYtyXa09m.jpg",
+      director: "Francis Ford Coppola",
+      genre: "Crime",
+      description:
+        "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
     },
     {
       id: 5,
-      title: "The Road to React",
+      title: "The Dark Knight",
       image:
-        "https://images-na.ssl-images-amazon.com/images/I/41MBLi5a4jL._SX384_BO1,204,203,200_.jpg",
-      author: "Robin Wieruch",
+        "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      director: "Christopher Nolan",
+      genre: "Action",
+      description:
+        "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as The Joker.",
     },
   ]);
 
-  const [selectedBook, setSelectedBook] = useState(null);
-  if (selectedBook) {
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  if (selectedMovie) {
     return (
-      <BookView book={selectedBook} onBackClick={() => setSelectedBook(null)} />
+      <MovieView
+        movie={selectedMovie}
+        onBackClick={() => setSelectedMovie(null)}
+      />
     );
   }
 
-  if (books.length === 0) {
+  if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
+
+  const [user, setUser] = useState(null);
+
+  const [register, setRegister] = useState(false);
 
   return (
     <div>
@@ -63,11 +97,13 @@ export const MainView = () => {
       >
         Click me!
       </button>
-      {books.map((book) => (
-        <BookCard
-          key={book.id}
-          book={book}
-          onBookClick={(newSelectedBook) => setSelectedBook(newSelectedBook)}
+      {movies.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          onMovieClick={(newSelectedMovie) =>
+            setSelectedMovie(newSelectedMovie)
+          }
         />
       ))}
     </div>
