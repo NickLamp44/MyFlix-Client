@@ -27387,16 +27387,22 @@ var _movieView = require("../MovieView/movieView");
 var _loginView = require("../LoginView/loginView");
 var _registerView = require("../RegisterView/registerView");
 var _bootstrapMinCss = require("bootstrap/dist/css/bootstrap.min.css");
+var _row = require("react-bootstrap/Row");
+var _rowDefault = parcelHelpers.interopDefault(_row);
+var _col = require("react-bootstrap/Col");
+var _colDefault = parcelHelpers.interopDefault(_col);
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
+    // State variables
     const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     const urlAPI = "http://localhost:8080/movies";
+    // Fetch movies from API
     (0, _react.useEffect)(()=>{
         if (!token) {
             console.log("No token found. Skipping fetch.");
@@ -27424,84 +27430,137 @@ const MainView = ()=>{
         token
     ]);
     console.log("Movies state:", movies);
-    // Check if a movie is selected and render MovieView
+    // Render MovieView if a movie is selected
     if (selectedMovie) {
         console.log("Selected movie:", selectedMovie);
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-            movie: selectedMovie,
-            onBackClick: ()=>{
-                console.log("Back button clicked, resetting selectedMovie");
-                setSelectedMovie(null);
-            }
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+            className: "justify-content-md-center",
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                md: 8,
+                style: {
+                    border: "1px solid black"
+                },
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                    style: {
+                        border: "1px solid green"
+                    },
+                    movie: selectedMovie,
+                    onBackClick: ()=>{
+                        console.log("Back button clicked, resetting selectedMovie");
+                        setSelectedMovie(null);
+                    }
+                }, void 0, false, {
+                    fileName: "src/components/MainView/mainView.jsx",
+                    lineNumber: 63,
+                    columnNumber: 11
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/MainView/mainView.jsx",
+                lineNumber: 62,
+                columnNumber: 9
+            }, undefined)
         }, void 0, false, {
             fileName: "src/components/MainView/mainView.jsx",
-            lineNumber: 57,
+            lineNumber: 61,
             columnNumber: 7
         }, undefined);
     }
     // If the user is not logged in, show login/register views
-    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                onLoggedIn: (user, token)=>{
-                    setUser(user);
-                    localStorage.setItem("user", user);
-                    setToken(token);
-                    localStorage.setItem("token", token);
-                }
-            }, void 0, false, {
-                fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 71,
-                columnNumber: 9
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registerView.RegisterView), {}, void 0, false, {
-                fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 79,
-                columnNumber: 9
-            }, undefined)
-        ]
-    }, void 0, true);
-    // Render the list of movies
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "Movie List"
-            }, void 0, false, {
-                fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 87,
-                columnNumber: 7
-            }, undefined),
-            movies.map((movie)=>{
-                console.log("Rendering movie:", movie);
-                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                    movie: movie,
-                    onMovieClick: (selectedMovie)=>{
-                        console.log("Movie clicked:", selectedMovie);
-                        setSelectedMovie(selectedMovie);
+    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+        className: "justify-content-md-center",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+            md: 5,
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                    onLoggedIn: (user, token)=>{
+                        setUser(user);
+                        localStorage.setItem("user", user);
+                        setToken(token);
+                        localStorage.setItem("token", token);
                     }
-                }, movie._id, false, {
+                }, void 0, false, {
                     fileName: "src/components/MainView/mainView.jsx",
-                    lineNumber: 91,
+                    lineNumber: 81,
                     columnNumber: 11
-                }, undefined);
-            }),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                onClick: ()=>{
-                    setUser(null);
-                    setToken(null);
-                    localStorage.removeItem("user");
-                    localStorage.removeItem("token");
-                },
-                children: "Logout"
+                }, undefined),
+                "or",
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registerView.RegisterView), {}, void 0, false, {
+                    fileName: "src/components/MainView/mainView.jsx",
+                    lineNumber: 90,
+                    columnNumber: 11
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/MainView/mainView.jsx",
+            lineNumber: 80,
+            columnNumber: 9
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/components/MainView/mainView.jsx",
+        lineNumber: 79,
+        columnNumber: 7
+    }, undefined);
+    // Render the list of movies
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+        className: "justify-content-md-center",
+        children: [
+            movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: "The list is empty!"
             }, void 0, false, {
                 fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 101,
+                lineNumber: 100,
+                columnNumber: 9
+            }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                children: movies.map((movie)=>{
+                    console.log("Rendering movie:", movie);
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                        className: "mb-5",
+                        md: 3,
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                            className: "h-100",
+                            movie: movie,
+                            onMovieClick: (selectedMovie)=>{
+                                console.log("Movie clicked:", selectedMovie);
+                                setSelectedMovie(selectedMovie);
+                            }
+                        }, void 0, false, {
+                            fileName: "src/components/MainView/mainView.jsx",
+                            lineNumber: 107,
+                            columnNumber: 17
+                        }, undefined)
+                    }, movie._id, false, {
+                        fileName: "src/components/MainView/mainView.jsx",
+                        lineNumber: 106,
+                        columnNumber: 15
+                    }, undefined);
+                })
+            }, void 0, false),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
+                xs: 12,
+                className: "text-center mt-4",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                    className: "btn btn-danger",
+                    onClick: ()=>{
+                        setUser(null);
+                        setToken(null);
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("token");
+                    },
+                    children: "Logout"
+                }, void 0, false, {
+                    fileName: "src/components/MainView/mainView.jsx",
+                    lineNumber: 121,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/MainView/mainView.jsx",
+                lineNumber: 120,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/MainView/mainView.jsx",
-        lineNumber: 86,
+        lineNumber: 98,
         columnNumber: 5
     }, undefined);
 };
@@ -27515,7 +27574,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../MovieCard/movieCard":"buqpr","../MovieView/movieView":"hbevP","../LoginView/loginView":"5X4LW","../RegisterView/registerView":"4g9dR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","bootstrap/dist/css/bootstrap.min.css":"i5LP7"}],"buqpr":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../MovieCard/movieCard":"buqpr","../MovieView/movieView":"hbevP","../LoginView/loginView":"5X4LW","../RegisterView/registerView":"4g9dR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","bootstrap/dist/css/bootstrap.min.css":"i5LP7","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6"}],"buqpr":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$a035 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27561,7 +27620,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
                         onClick: ()=>{
                             onMovieClick(movie);
                         },
-                        children: "Open"
+                        children: "Find out more!"
                     }, void 0, false, {
                         fileName: "src/components/MovieCard/movieCard.jsx",
                         lineNumber: 11,
@@ -30696,7 +30755,41 @@ const FloatingLabel = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, ch
 FloatingLabel.displayName = "FloatingLabel";
 exports.default = FloatingLabel;
 
-},{"classnames":"jocGM","react":"21dqq","./FormGroup":"1qBHH","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hbevP":[function(require,module,exports) {
+},{"classnames":"jocGM","react":"21dqq","./FormGroup":"1qBHH","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMC39":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _classnames = require("classnames");
+var _classnamesDefault = parcelHelpers.interopDefault(_classnames);
+var _react = require("react");
+var _themeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+"use client";
+const Row = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+as: Component = "div", ...props }, ref)=>{
+    const decoratedBsPrefix = (0, _themeProvider.useBootstrapPrefix)(bsPrefix, "row");
+    const breakpoints = (0, _themeProvider.useBootstrapBreakpoints)();
+    const minBreakpoint = (0, _themeProvider.useBootstrapMinBreakpoint)();
+    const sizePrefix = `${decoratedBsPrefix}-cols`;
+    const classes = [];
+    breakpoints.forEach((brkPoint)=>{
+        const propValue = props[brkPoint];
+        delete props[brkPoint];
+        let cols;
+        if (propValue != null && typeof propValue === "object") ({ cols } = propValue);
+        else cols = propValue;
+        const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : "";
+        if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
+    });
+    return /*#__PURE__*/ (0, _jsxRuntime.jsx)(Component, {
+        ref: ref,
+        ...props,
+        className: (0, _classnamesDefault.default)(className, decoratedBsPrefix, ...classes)
+    });
+});
+Row.displayName = "Row";
+exports.default = Row;
+
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hbevP":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$dd5e = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

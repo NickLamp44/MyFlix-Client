@@ -14,7 +14,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
             onMovieClick(movie);
           }}
         >
-          Open
+          Find out more!
         </Button>
       </Card.Body>
     </Card>
