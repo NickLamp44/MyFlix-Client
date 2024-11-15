@@ -4,12 +4,17 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {
+  console.log("MovieCard Props:", movie);
+
   return (
-    <Card>
-      <Card.Img variant="top" src={movie.ImagePath} />
+    <Card className="h-100">
+      <Card.Img
+        variant="top"
+        src={movie.ImagePath}
+        alt={`${movie.Title} poster`}
+      />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Description}</Card.Text>
         <Link to={`/movies/${movie._id}`}>
           <Button variant="link">Find out more!</Button>
         </Link>
@@ -20,8 +25,8 @@ export const MovieCard = ({ movie }) => {
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     ImagePath: PropTypes.string,
-    Description: PropTypes.string,
   }).isRequired,
 };

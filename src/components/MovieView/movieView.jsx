@@ -13,12 +13,16 @@ export const MovieView = ({ movies }) => {
       <img
         src={movie.ImagePath}
         alt={`${movie.Title} poster`}
-        className="w-100"
+        className="w-100 mb-3"
       />
       <h2>{movie.Title}</h2>
       <p>{movie.Description}</p>
-      <p>Genre: {movie.Genre?.Name}</p>
-      <p>Directed by: {movie.Director?.Name}</p>
+      <p>
+        <strong>Genre:</strong> {movie.Genre || "Unknown"}
+      </p>
+      <p>
+        <strong>Directed by:</strong> {movie.Director || "Unknown"}
+      </p>
       <Link to="/">
         <button className="btn btn-primary">Back</button>
       </Link>
@@ -33,12 +37,8 @@ MovieView.propTypes = {
       Title: PropTypes.string.isRequired,
       ImagePath: PropTypes.string,
       Description: PropTypes.string,
-      Genre: PropTypes.shape({
-        Name: PropTypes.string,
-      }),
-      Director: PropTypes.shape({
-        Name: PropTypes.string,
-      }),
+      Genre: PropTypes.string,
+      Director: PropTypes.string,
     })
   ).isRequired,
 };
