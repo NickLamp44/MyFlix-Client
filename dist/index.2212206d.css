@@ -1,15 +1,3 @@
-.my-flix {
-  color: #4682b4;
-}
-
-.backButton {
-  color: #f5f5f5;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 12px;
-}
-
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -388,9 +376,9 @@ fieldset {
 
 legend {
   float: left;
+  width: 100%;
   font-size: calc(1.275rem + .3vw);
   line-height: inherit;
-  width: 100%;
   margin-bottom: .5rem;
   padding: 0;
 }
@@ -622,9 +610,9 @@ progress {
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
+  width: 100%;
   padding-right: calc(var(--bs-gutter-x) * .5);
   padding-left: calc(var(--bs-gutter-x) * .5);
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -670,12 +658,12 @@ progress {
 }
 
 .row > * {
+  width: 100%;
+  max-width: 100%;
   padding-right: calc(var(--bs-gutter-x) * .5);
   padding-left: calc(var(--bs-gutter-x) * .5);
   margin-top: var(--bs-gutter-y);
   flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
 }
 
 .col {
@@ -1895,10 +1883,10 @@ progress {
   --bs-table-active-bg: #0000001a;
   --bs-table-hover-color: var(--bs-body-color);
   --bs-table-hover-bg: #00000013;
+  width: 100%;
   color: var(--bs-table-color);
   vertical-align: top;
   border-color: var(--bs-table-border-color);
-  width: 100%;
   margin-bottom: 1rem;
 }
 
@@ -3655,14 +3643,15 @@ textarea.form-control-lg {
 }
 
 .dropdown-divider {
+  height: 0;
   margin: var(--bs-dropdown-divider-margin-y) 0;
   border-top: 1px solid var(--bs-dropdown-divider-bg);
   opacity: 1;
-  height: 0;
   overflow: hidden;
 }
 
 .dropdown-item {
+  width: 100%;
   padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
   clear: both;
   color: var(--bs-dropdown-link-color);
@@ -3670,7 +3659,6 @@ textarea.form-control-lg {
   white-space: nowrap;
   background-color: #0000;
   border: 0;
-  width: 100%;
   font-weight: 400;
   text-decoration: none;
   display: block;
@@ -4445,6 +4433,7 @@ textarea.form-control-lg {
   --bs-card-bg: #fff;
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: .75rem;
+  min-width: 0;
   height: var(--bs-card-height);
   word-wrap: break-word;
   background-color: var(--bs-card-bg);
@@ -4452,7 +4441,6 @@ textarea.form-control-lg {
   border-radius: var(--bs-card-border-radius);
   background-clip: border-box;
   flex-direction: column;
-  min-width: 0;
   display: flex;
   position: relative;
 }
@@ -4640,6 +4628,7 @@ textarea.form-control-lg {
 }
 
 .accordion-button {
+  width: 100%;
   padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
   color: var(--bs-accordion-btn-color);
   text-align: left;
@@ -4649,7 +4638,6 @@ textarea.form-control-lg {
   border: 0;
   border-radius: 0;
   align-items: center;
-  width: 100%;
   font-size: 1rem;
   display: flex;
   position: relative;
@@ -5139,9 +5127,9 @@ textarea.form-control-lg {
 }
 
 .list-group-item-action {
+  width: 100%;
   color: var(--bs-list-group-action-color);
   text-align: inherit;
-  width: 100%;
 }
 
 .list-group-item-action:focus, .list-group-item-action:hover {
@@ -5567,6 +5555,7 @@ textarea.form-control-lg {
   --bs-toast-header-bg: #ffffffd9;
   --bs-toast-header-border-color: #0000000d;
   width: var(--bs-toast-max-width);
+  max-width: 100%;
   font-size: var(--bs-toast-font-size);
   color: var(--bs-toast-color);
   pointer-events: auto;
@@ -5575,7 +5564,6 @@ textarea.form-control-lg {
   box-shadow: var(--bs-toast-box-shadow);
   border-radius: var(--bs-toast-border-radius);
   background-clip: padding-box;
-  max-width: 100%;
 }
 
 .toast.showing {
@@ -5654,9 +5642,9 @@ textarea.form-control-lg {
 }
 
 .modal-dialog {
+  width: auto;
   margin: var(--bs-modal-margin);
   pointer-events: none;
-  width: auto;
   position: relative;
 }
 
@@ -5699,6 +5687,7 @@ textarea.form-control-lg {
 }
 
 .modal-content {
+  width: 100%;
   color: var(--bs-modal-color);
   pointer-events: auto;
   background-color: var(--bs-modal-bg);
@@ -5707,7 +5696,6 @@ textarea.form-control-lg {
   background-clip: padding-box;
   outline: 0;
   flex-direction: column;
-  width: 100%;
   display: flex;
   position: relative;
 }
@@ -6488,13 +6476,13 @@ textarea.form-control-lg {
 @media (width <= 575.98px) {
   .offcanvas-sm {
     z-index: 1045;
+    max-width: 100%;
     color: var(--bs-offcanvas-color);
     visibility: hidden;
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
     flex-direction: column;
-    max-width: 100%;
     transition: transform .3s ease-in-out;
     display: flex;
     position: fixed;
@@ -6576,13 +6564,13 @@ textarea.form-control-lg {
 @media (width <= 767.98px) {
   .offcanvas-md {
     z-index: 1045;
+    max-width: 100%;
     color: var(--bs-offcanvas-color);
     visibility: hidden;
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
     flex-direction: column;
-    max-width: 100%;
     transition: transform .3s ease-in-out;
     display: flex;
     position: fixed;
@@ -6664,13 +6652,13 @@ textarea.form-control-lg {
 @media (width <= 991.98px) {
   .offcanvas-lg {
     z-index: 1045;
+    max-width: 100%;
     color: var(--bs-offcanvas-color);
     visibility: hidden;
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
     flex-direction: column;
-    max-width: 100%;
     transition: transform .3s ease-in-out;
     display: flex;
     position: fixed;
@@ -6752,13 +6740,13 @@ textarea.form-control-lg {
 @media (width <= 1199.98px) {
   .offcanvas-xl {
     z-index: 1045;
+    max-width: 100%;
     color: var(--bs-offcanvas-color);
     visibility: hidden;
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
     flex-direction: column;
-    max-width: 100%;
     transition: transform .3s ease-in-out;
     display: flex;
     position: fixed;
@@ -6840,13 +6828,13 @@ textarea.form-control-lg {
 @media (width <= 1399.98px) {
   .offcanvas-xxl {
     z-index: 1045;
+    max-width: 100%;
     color: var(--bs-offcanvas-color);
     visibility: hidden;
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
     flex-direction: column;
-    max-width: 100%;
     transition: transform .3s ease-in-out;
     display: flex;
     position: fixed;
@@ -6927,13 +6915,13 @@ textarea.form-control-lg {
 
 .offcanvas {
   z-index: 1045;
+  max-width: 100%;
   color: var(--bs-offcanvas-color);
   visibility: hidden;
   background-color: var(--bs-offcanvas-bg);
   background-clip: padding-box;
   outline: 0;
   flex-direction: column;
-  max-width: 100%;
   transition: transform .3s ease-in-out;
   display: flex;
   position: fixed;
@@ -12059,5 +12047,17 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+
+.backButton {
+  color: #f5f5f5;
+  background-color: #1e90ff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+.my-flix {
+  color: #4682b4;
 }
 /*# sourceMappingURL=index.2212206d.css.map */
