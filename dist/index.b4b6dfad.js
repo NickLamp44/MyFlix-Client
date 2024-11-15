@@ -27222,185 +27222,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$ccbf.prelude(module);
 
 try {
-// import { useState, useEffect } from "react";
-// import { MovieCard } from "../MovieCard/movieCard";
-// import { MovieView } from "../MovieView/movieView";
-// import { LoginView } from "../LoginView/loginView";
-// import { RegisterView } from "../RegisterView/registerView";
-// import { Navigationbar } from "../NavigationBar/navigationBar";
-// // utils
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
-// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// export const MainView = () => {
-//   const storedUser = localStorage.getItem("user");
-//   const storedToken = localStorage.getItem("token");
-//   // State variables
-//   const [user, setUser] = useState(storedUser ? storedUser : null);
-//   const [token, setToken] = useState(storedToken ? storedToken : null);
-//   const [movies, setMovies] = useState([]);
-//   const [selectedMovie, setSelectedMovie] = useState(null);
-//   const urlAPI = "http://localhost:8080/movies";
-//   // Fetch movies from API
-//   useEffect(() => {
-//     if (!token) {
-//       console.log("No token found. Skipping fetch.");
-//       return;
-//     }
-//     console.log("Fetching movies with token:", token);
-//     fetch(urlAPI, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       credentials: "include",
-//     })
-//       .then((response) => {
-//         console.log("API Response:", response);
-//         if (!response.ok) {
-//           throw new Error(`HTTP error! Status: ${response.status}`);
-//         }
-//         return response.json();
-//       })
-//       .then((data) => {
-//         console.log("Movies data received:", data);
-//         setMovies(data);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching movies:", error);
-//       });
-//   }, [token]);
-//   console.log("Movies state:", movies);
-//   // Render MovieView if a movie is selected
-//   if (selectedMovie) {
-//     console.log("Selected movie:", selectedMovie);
-//     return (
-//       <Row className="justify-content-md-center">
-//         <Col md={8} style={{ border: "1px solid black" }}>
-//           <MovieView
-//             style={{ border: "1px solid green" }}
-//             movie={selectedMovie}
-//             onBackClick={() => {
-//               console.log("Back button clicked, resetting selectedMovie");
-//               setSelectedMovie(null);
-//             }}
-//           />
-//         </Col>
-//       </Row>
-//     );
-//   }
-//   // If the user is not logged in, show login/register views
-//   if (!user) {
-//     return (
-//       <BrowserRouter>
-//         <NavigationBar
-//           user={user}
-//           onLoggedOut={() => {
-//             setUser(null);
-//           }}
-//         />
-//         <Row className="justify-content-md-center">
-//           <Routes>
-//             <Route
-//               path="/signup"
-//               element={
-//                 <>
-//                   {user ? (
-//                     <Navigate to="/" />
-//                   ) : (
-//                     <Col md={5}>
-//                       <RegisterView />
-//                     </Col>
-//                   )}
-//                 </>
-//               }
-//             />
-//             <Route
-//               path="/login"
-//               element={
-//                 <>
-//                   {user ? (
-//                     <Navigate to="/" />
-//                   ) : (
-//                     <Col md={5}>
-//                       <LoginView />
-//                     </Col>
-//                   )}
-//                 </>
-//               }
-//             />
-//           </Routes>
-//         </Row>
-//       </BrowserRouter>
-//     );
-//   }
-//   // Render the list of movies
-//   return (
-//     <BrowserRouter>
-//       <NavigationBar
-//         user={user}
-//         onLoggedOut={() => {
-//           setUser(null);
-//         }}
-//       />
-//       <Row>
-//         <Routes>
-//           <Route
-//             path="/movie/:movieID"
-//             element={
-//               <>
-//                 {!user ? (
-//                   <Navigate to="/login" replace />
-//                 ) : movies.length === 0 ? (
-//                   <Col> The List is Empty! </Col>
-//                 ) : (
-//                   <Col md={8}>
-//                     {" "}
-//                     <MovieView movies={movies} />
-//                   </Col>
-//                 )}
-//               </>
-//             }
-//           />
-//           <Route
-//             path="/"
-//             element={
-//               <>
-//                 {!user ? (
-//                   <Navigate to="/login" replace />
-//                 ) : movies.length === 0 ? (
-//                   <Col> The List is Empty! </Col>
-//                 ) : (
-//                   <>
-//                     {movies.map(
-//                       (movie) => (
-//                         console.log("Rendering movie:", movie),
-//                         (
-//                           <Col className="mb-5" key={movie._id} md={3}>
-//                             <MovieCard
-//                               className="h-100"
-//                               movie={movie}
-//                               onMovieClick={(selectedMovie) => {
-//                                 console.log("Movie clicked:", selectedMovie);
-//                                 setSelectedMovie(selectedMovie);
-//                               }}
-//                             />
-//                           </Col>
-//                         )
-//                       )
-//                     )}
-//                   </>
-//                 )}
-//               </>
-//             }
-//           />
-//         </Routes>
-//       </Row>
-//     </BrowserRouter>
-//   );
-// };
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
@@ -27428,7 +27249,11 @@ const MainView = ()=>{
     const [movies, setMovies] = (0, _react.useState)([]);
     const urlAPI = "http://localhost:8080/movies";
     (0, _react.useEffect)(()=>{
-        if (!token) return;
+        if (!token) {
+            console.log("No token found. Skipping fetch.");
+            return;
+        }
+        console.log("Fetching movies with token:", token);
         fetch(urlAPI, {
             method: "GET",
             headers: {
@@ -27436,7 +27261,16 @@ const MainView = ()=>{
                 Authorization: `Bearer ${token}`
             },
             credentials: "include"
-        }).then((response)=>response.json()).then((data)=>setMovies(data)).catch((error)=>console.error("Error fetching movies:", error));
+        }).then((response)=>{
+            console.log("API Response:", response);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        }).then((data)=>{
+            console.log("Movies data received:", data);
+            setMovies(data);
+        }).catch((error)=>{
+            console.error("Error fetching movies:", error);
+        });
     }, [
         token
     ]);
@@ -27452,7 +27286,7 @@ const MainView = ()=>{
                 onLoggedOut: handleLogout
             }, void 0, false, {
                 fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 240,
+                lineNumber: 64,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27465,18 +27299,18 @@ const MainView = ()=>{
                                 movies: movies
                             }, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 246,
+                                lineNumber: 70,
                                 columnNumber: 22
                             }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
                                 to: "/login"
                             }, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 246,
+                                lineNumber: 70,
                                 columnNumber: 54
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/MainView/mainView.jsx",
-                            lineNumber: 243,
+                            lineNumber: 67,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27485,30 +27319,30 @@ const MainView = ()=>{
                                 to: "/"
                             }, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 252,
+                                lineNumber: 76,
                                 columnNumber: 22
                             }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
                                 onLoggedIn: setUser
                             }, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 252,
+                                lineNumber: 76,
                                 columnNumber: 44
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/MainView/mainView.jsx",
-                            lineNumber: 249,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                             path: "/signup",
                             element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registerView.RegisterView), {}, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 255,
+                                lineNumber: 79,
                                 columnNumber: 42
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/MainView/mainView.jsx",
-                            lineNumber: 255,
+                            lineNumber: 79,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27517,12 +27351,12 @@ const MainView = ()=>{
                                 user: user
                             }, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 256,
+                                lineNumber: 80,
                                 columnNumber: 43
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/MainView/mainView.jsx",
-                            lineNumber: 256,
+                            lineNumber: 80,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27531,29 +27365,29 @@ const MainView = ()=>{
                                 movies: movies
                             }, void 0, false, {
                                 fileName: "src/components/MainView/mainView.jsx",
-                                lineNumber: 259,
+                                lineNumber: 83,
                                 columnNumber: 22
                             }, void 0)
                         }, void 0, false, {
                             fileName: "src/components/MainView/mainView.jsx",
-                            lineNumber: 257,
+                            lineNumber: 81,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/MainView/mainView.jsx",
-                    lineNumber: 242,
+                    lineNumber: 66,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 241,
+                lineNumber: 65,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/MainView/mainView.jsx",
-        lineNumber: 239,
+        lineNumber: 63,
         columnNumber: 5
     }, undefined);
 };
@@ -27564,7 +27398,7 @@ const MovieList = ({ movies })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _js
             children: "The list is empty!"
         }, void 0, false, {
             fileName: "src/components/MainView/mainView.jsx",
-            lineNumber: 270,
+            lineNumber: 94,
             columnNumber: 7
         }, undefined) : movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                 className: "mb-5",
@@ -27573,12 +27407,12 @@ const MovieList = ({ movies })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _js
                     movie: movie
                 }, void 0, false, {
                     fileName: "src/components/MainView/mainView.jsx",
-                    lineNumber: 274,
+                    lineNumber: 98,
                     columnNumber: 11
                 }, undefined)
             }, movie._id, false, {
                 fileName: "src/components/MainView/mainView.jsx",
-                lineNumber: 273,
+                lineNumber: 97,
                 columnNumber: 9
             }, undefined))
     }, void 0, false);
@@ -36052,42 +35886,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$1f27.prelude(module);
 
 try {
-// import { Navbar, Container, Nav } from "react-bootstrap";
-// import { Link } from "react-router-dom";
-// export const NavigationBar = ({ user, onLoggedOut }) => {
-//   return (
-//     <Navbar bg="light" expand="lg">
-//       <Container>
-//         <Navbar.Brand as={Link} to="/">
-//           Books App
-//         </Navbar.Brand>
-//         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//         <Navbar.Collapse id="basic-navbar-nav">
-//           <Nav className="me-auto">
-//             {!user && (
-//               <>
-//                 <Nav.Link as={Link} to="/login">
-//                   Login
-//                 </Nav.Link>
-//                 <Nav.Link as={Link} to="/signup">
-//                   Signup
-//                 </Nav.Link>
-//               </>
-//             )}
-//             {user && (
-//               <>
-//                 <Nav.Link as={Link} to="/">
-//                   Home
-//                 </Nav.Link>
-//                 <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
-//               </>
-//             )}
-//           </Nav>
-//         </Navbar.Collapse>
-//       </Container>
-//     </Navbar>
-//   );
-// };
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "NavigationBar", ()=>NavigationBar);
@@ -36104,17 +35902,17 @@ const NavigationBar = ({ user, onLoggedOut })=>/*#__PURE__*/ (0, _jsxDevRuntime.
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     as: (0, _reactRouterDom.Link),
                     to: "/",
-                    children: "MyFlixApp"
+                    children: "NicksFlix"
                 }, void 0, false, {
                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                    lineNumber: 46,
+                    lineNumber: 8,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                    lineNumber: 49,
+                    lineNumber: 11,
                     columnNumber: 7
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -36129,7 +35927,7 @@ const NavigationBar = ({ user, onLoggedOut })=>/*#__PURE__*/ (0, _jsxDevRuntime.
                                     children: "Login"
                                 }, void 0, false, {
                                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                                    lineNumber: 54,
+                                    lineNumber: 16,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -36138,7 +35936,7 @@ const NavigationBar = ({ user, onLoggedOut })=>/*#__PURE__*/ (0, _jsxDevRuntime.
                                     children: "Signup"
                                 }, void 0, false, {
                                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                                    lineNumber: 57,
+                                    lineNumber: 19,
                                     columnNumber: 15
                                 }, undefined)
                             ]
@@ -36150,7 +35948,7 @@ const NavigationBar = ({ user, onLoggedOut })=>/*#__PURE__*/ (0, _jsxDevRuntime.
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                                    lineNumber: 63,
+                                    lineNumber: 25,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -36159,7 +35957,7 @@ const NavigationBar = ({ user, onLoggedOut })=>/*#__PURE__*/ (0, _jsxDevRuntime.
                                     children: "Profile"
                                 }, void 0, false, {
                                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                                    lineNumber: 66,
+                                    lineNumber: 28,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -36167,30 +35965,30 @@ const NavigationBar = ({ user, onLoggedOut })=>/*#__PURE__*/ (0, _jsxDevRuntime.
                                     children: "Logout"
                                 }, void 0, false, {
                                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                                    lineNumber: 69,
+                                    lineNumber: 31,
                                     columnNumber: 15
                                 }, undefined)
                             ]
                         }, void 0, true)
                     }, void 0, false, {
                         fileName: "src/components/NavigationBar/navigationBar.jsx",
-                        lineNumber: 51,
+                        lineNumber: 13,
                         columnNumber: 9
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/NavigationBar/navigationBar.jsx",
-                    lineNumber: 50,
+                    lineNumber: 12,
                     columnNumber: 7
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/NavigationBar/navigationBar.jsx",
-            lineNumber: 45,
+            lineNumber: 7,
             columnNumber: 5
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/NavigationBar/navigationBar.jsx",
-        lineNumber: 44,
+        lineNumber: 6,
         columnNumber: 3
     }, undefined);
 _c = NavigationBar;
