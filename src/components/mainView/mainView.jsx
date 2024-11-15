@@ -6,6 +6,7 @@ import { RegisterView } from "../RegisterView/registerView";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
   const storedUser = localStorage.getItem("user");
@@ -76,20 +77,40 @@ export const MainView = () => {
   // If the user is not logged in, show login/register views
   if (!user) {
     return (
-      <Row className="justify-content-md-center">
-        <Col md={5}>
-          <LoginView
-            onLoggedIn={(user, token) => {
-              setUser(user);
-              localStorage.setItem("user", user);
-              setToken(token);
-              localStorage.setItem("token", token);
-            }}
-          />
-          or
-          <RegisterView />
-        </Col>
-      </Row>
+      <BrowserRouter>
+        <Row className="justify-content-md-center">
+          <Routes>
+            <Route
+              path="/signup"
+              element={
+                <>
+                  {user ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <Col md={5}>
+                      <RegisterView />
+                    </Col>
+                  )}
+                </>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <>
+                  {user ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <Col md={5}>
+                      <LoginView />
+                    </Col>
+                  )}
+                </>
+              }
+            />
+          </Routes>
+        </Row>
+      </BrowserRouter>
     );
   }
 
