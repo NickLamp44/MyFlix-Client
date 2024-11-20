@@ -2,64 +2,46 @@ import React, { useState } from "react";
 
 export const RegisterView = () => {
   const urlAPI = "http://localhost:8080";
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [firstname, setFirstname] = useState(null);
-  const [lastname, setLastname] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [birthday, setBirthday] = useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Create an object with the data the server needs
+    // Match field names expected by the backend
     const data = {
-      firstName: firstname,
-      lastName: lastname,
-      userName: username,
-      password: password,
-      email: email,
-      birthDate: birthday,
+      username,
+      password,
+      Email: email,
+      Birthday: birthday,
     };
-    console.log(data);
 
-    // Send a request to the server for authentication
-    fetch(urlAPI + "/users", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
+    try {
+      const response = await fetch(urlAPI + "/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
       if (response.ok) {
         alert("Signup successful");
         window.location.reload();
       } else {
-        alert("Signup failed");
+        const errorData = await response.json();
+        alert(`Signup failed: ${errorData.message || "Unknown error"}`);
       }
-    });
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        First Name:
-        <input
-          type="firstname"
-          value={firstname}
-          onChange={(event) => setFirstname(event.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Last Name:
-        <input
-          type="lastname"
-          value={lastname}
-          onChange={(event) => setLastname(event.target.value)}
-          required
-        />
-      </label>
       <label>
         Username:
         <input
@@ -79,7 +61,6 @@ export const RegisterView = () => {
           required
         />
       </label>
-
       <label>
         Email:
         <input
