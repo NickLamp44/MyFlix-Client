@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { MovieCard } from "../MovieCard/MovieCard";
 import { MovieView } from "../MovieView/MovieView";
-import { LoginView } from "../LoginView/LoginView";
-import { RegisterView } from "../RegisterView/RegisterView";
+import { LoginView } from "../LoginView/loginView";
+import { RegisterView } from "../RegisterView/registerView";
 import { NavigationBar } from "../NavigationBar/navigationBar";
 import { ProfileView } from "../ProfileView/profileView";
 import "bootstrap/dist/css/bootstrap.min.css";

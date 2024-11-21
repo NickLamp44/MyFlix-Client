@@ -10,8 +10,8 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
+      username: username,
+      password: password,
     };
     console.log("Login request data:", data);
 
@@ -55,7 +55,6 @@ export const LoginView = ({ onLoggedIn }) => {
           type="text"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
-          minLength="5"
           required
         />
       </Form.Group>
@@ -65,7 +64,6 @@ export const LoginView = ({ onLoggedIn }) => {
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          minLength="5"
           required
         />
       </Form.Group>
