@@ -11,7 +11,7 @@ export const MovieCard = ({ movie }) => {
       <Card.Img
         variant="top"
         src={movie.ImagePath}
-        alt={`${movie.Title} poster`}
+        alt={`${movie.Title} Poster`}
       />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>

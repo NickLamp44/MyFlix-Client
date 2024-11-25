@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useParams, Link } from "react-router-dom";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
@@ -9,24 +10,48 @@ export const MovieView = ({ movies }) => {
   if (!movie) return <div>Movie not found</div>;
 
   return (
-    <div>
-      <img
-        src={movie.ImagePath}
-        alt={`${movie.Title} poster`}
-        className="w-100 mb-3"
-      />
-      <h2>{movie.Title}</h2>
-      <p>{movie.Description}</p>
-      <p>
-        <strong>Genre:</strong> {movie.Genre || "Unknown"}
-      </p>
-      <p>
-        <strong>Directed by:</strong> {movie.Director || "Unknown"}
-      </p>
-      <Link to="/">
-        <button className="btn btn-primary">Back</button>
-      </Link>
-    </div>
+    <Container className="mt-4">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card className="shadow-lg">
+            <Row className="g-0">
+              {/* Movie Poster */}
+              <Col md={4}>
+                <Card.Img
+                  src={movie.ImagePath}
+                  alt={`${movie.Title} poster`}
+                  className="img-fluid rounded-start"
+                  style={{ objectFit: "cover" }}
+                />
+              </Col>
+
+              {/* Movie Details */}
+              <Col md={8}>
+                <Card.Body>
+                  <Card.Title as="h2" className="text-center mb-3">
+                    {movie.Title}
+                  </Card.Title>
+                  <Card.Text>
+                    <strong>Description:</strong> {movie.Description}
+                  </Card.Text>
+                  <Card.Text>
+                    <strong>Genre:</strong> {movie.Genre || "Unknown"}
+                  </Card.Text>
+                  <Card.Text>
+                    <strong>Directed by:</strong> {movie.Director || "Unknown"}
+                  </Card.Text>
+                  <div className="text-center mt-4">
+                    <Link to="/">
+                      <Button variant="primary">Back</Button>
+                    </Link>
+                  </div>
+                </Card.Body>
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

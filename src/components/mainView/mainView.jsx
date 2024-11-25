@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { MovieCard } from "../MovieCard/MovieCard";
-import { MovieView } from "../MovieView/MovieView";
+import { MovieCard } from "../MovieCard/movieCard";
+import { MovieView } from "../MovieView/movieView";
 import { LoginView } from "../LoginView/loginView";
 import { RegisterView } from "../RegisterView/registerView";
 import { NavigationBar } from "../NavigationBar/navigationBar";
