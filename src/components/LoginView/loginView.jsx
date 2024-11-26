@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 
 export const LoginView = ({ onLoggedIn }) => {
   const urlAPI = "http://localhost:8080";
@@ -48,29 +48,42 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-      </Form.Group>
+    <Container className="mt-5">
+      <Row className="justify-content-md-center">
+        <Col md={6}>
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">Login</Card.Title>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formUsername" className="mb-3">
+                  <Form.Label>Username:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formPassword" className="mb-3">
+                  <Form.Label>Password:</Form.Label>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    required
+                  />
+                </Form.Group>
 
-      <Button varient="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+                <div className="d-grid">
+                  <Button variant="primary" type="submit">
+                    Login
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
