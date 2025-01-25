@@ -9,7 +9,7 @@ export const ProfileView = ({ user }) => (
     <p>Email: {user.Email}</p>
     <p>Birthday: {user.Birthday}</p>
 
-    {/* <h3 className="mt-5">Your Watchlist</h3>
+    <h3 className="mt-5">Your Watchlist</h3>
     <div className="watchlist">
       {user.Watchlist && user.Watchlist.length > 0 ? (
         user.Watchlist.map((movie) => (
@@ -22,7 +22,7 @@ export const ProfileView = ({ user }) => (
       ) : (
         <p>You have not added any movies to your watchlist.</p>
       )}
-    </div> */}
+    </div>
   </div>
 );
 
