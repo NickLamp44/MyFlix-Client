@@ -7,13 +7,16 @@ export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
   console.log("MovieCard Props:", movie);
 
   const handleAddToWatchlist = () => {
-    fetch(`http://localhost:8080/users/${userId}/watchlist/${movie._id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://nicks-flix-364389a40fe7.herokuapp.com/users/${userId}/watchlist/${movie._id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -45,9 +48,9 @@ export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
             Find out more!
           </Button>
         </Link>
-        {/* <Button variant="success" onClick={handleAddToWatchlist}>
+        <Button variant="success" onClick={handleAddToWatchlist}>
           Add to Watchlist
-        </Button> */}
+        </Button>
       </Card.Body>
     </Card>
   );

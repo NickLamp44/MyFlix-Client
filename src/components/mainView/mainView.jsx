@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // API URL
-const urlAPI = "http://localhost:8080/movies";
+const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com/movies";
 
 // Custom hook for fetching movies
 const useFetchMovies = (token) => {

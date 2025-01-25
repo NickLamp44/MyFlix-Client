@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 
 export const LoginView = ({ onLoggedIn }) => {
-  const urlAPI = "http://localhost:8080";
+  const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com/";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,12 +20,11 @@ export const LoginView = ({ onLoggedIn }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      // Correct the body structure here
+
       body: JSON.stringify(data),
       credentials: "include",
     })
       .then((response) => {
-        // Check if the response is ok
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
