@@ -49,7 +49,7 @@ export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
           </Button>
         </Link>
         <Button variant="success" onClick={handleAddToWatchlist}>
-          Add to Watchlist
+          Add to Watchlist!
         </Button>
       </Card.Body>
     </Card>
