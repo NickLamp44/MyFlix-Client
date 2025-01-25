@@ -4,19 +4,25 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
-  console.log("MovieCard Props:", movie);
+  console.log("MovieCard Props:", movie, "UserID:", userId);
 
   const handleAddToWatchlist = () => {
-    fetch(
-      `https://nicks-flix-364389a40fe7.herokuapp.com/users/${userId}/watchlist/${movie._id}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    if (!userId) {
+      console.error("UserID is missing!");
+      alert("Unable to add to watchlist. Please log in first.");
+      return;
+    }
+
+    const url = `https://nicks-flix-364389a40fe7.herokuapp.com/users/${userId}/watchlist/${movie._id}`;
+    console.log(`Making request to: ${url}`);
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

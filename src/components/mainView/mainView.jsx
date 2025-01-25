@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // API URL
-const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com/movies";
+const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
 
 // Custom hook for fetching movies
 const useFetchMovies = (token) => {
@@ -69,7 +69,7 @@ const useFetchMovies = (token) => {
 // MainView component
 export const MainView = () => {
   // State variables
-  const storedUser = localStorage.getItem("user");
+  const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
@@ -92,7 +92,16 @@ export const MainView = () => {
           <Route
             path="/"
             element={
-              user ? <MovieList movies={movies} /> : <Navigate to="/login" />
+              user ? (
+                <MovieList
+                  movies={movies}
+                  user={user}
+                  token={token}
+                  onWatchlistUpdate={(updatedUser) => setUser(updatedUser)}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
 
@@ -144,7 +153,7 @@ export const MainView = () => {
 };
 
 // MovieList component
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, user, token, onWatchlistUpdate }) => {
   if (movies.length === 0) {
     return <Col md={8}>The list is empty! Please try refreshing the page.</Col>;
   }
@@ -153,7 +162,12 @@ const MovieList = ({ movies }) => {
     <>
       {movies.map((movie) => (
         <Col className="mb-5" key={movie._id} md={3}>
-          <MovieCard movie={movie} />
+          <MovieCard
+            movie={movie}
+            userId={user?._id}
+            token={token}
+            onWatchlistUpdate={onWatchlistUpdate}
+          />
         </Col>
       ))}
     </>
