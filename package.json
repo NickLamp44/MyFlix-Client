@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "proxy": "http://localhost:8080",
   "scripts": {
-    "build": "parcel build src/index.html",
+    "clean": "rimraf dist",
+    "build": "npm run clean && parcel build src/index.html",
     "start": "parcel src/index.html"
   },
   "author": "",
@@ -23,7 +24,8 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.9.3",
     "browserslist": "^4.24.2",
-    "parcel": "^2.13.2",
-    "process": "^0.11.10"
+    "parcel": "^2.13.3",
+    "process": "^0.11.10",
+    "rimraf": "^6.0.1"
   }
 }
