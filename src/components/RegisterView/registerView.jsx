@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 
 export const RegisterView = () => {
-  const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
+  const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com/register";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
