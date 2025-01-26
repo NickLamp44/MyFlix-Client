@@ -10,7 +10,7 @@ import { NavigationBar } from "../NavigationBar/navigationBar";
 import { ProfileView } from "../ProfileView/profileView";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
+const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com/movies";
 
 // Safely retrieve the stored user
 const getStoredUser = () => {
@@ -37,7 +37,7 @@ const useFetchMovies = (token) => {
       try {
         console.log("Fetching movies with token:", token);
 
-        const response = await fetch(urlAPI, {
+        const response = await fetch(`${urlAPI}/movies`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -46,12 +46,18 @@ const useFetchMovies = (token) => {
           credentials: "include",
         });
 
+        console.log("Raw Response:", response);
+
         if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
+        console.log("Fetched Movies Data:", data);
 
+        // Map the API response to match the MovieCard component's expected structure
         const moviesFromApi = data.map((movie) => ({
           _id: movie._id,
           Title: movie.Title,
