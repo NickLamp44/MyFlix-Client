@@ -12,7 +12,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
 
-// Safely retrieve the stored user
 const getStoredUser = () => {
   try {
     const storedUser = localStorage.getItem("user");
@@ -23,9 +22,19 @@ const getStoredUser = () => {
   }
 };
 
-// Custom hook for fetching movies
+const isTokenExpired = (token) => {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+    return payload.exp * 1000 < Date.now();
+  } catch (e) {
+    console.error("Invalid token:", e);
+    return true;
+  }
+};
+
 const useFetchMovies = (token) => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null); // null during loading
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -37,19 +46,14 @@ const useFetchMovies = (token) => {
       try {
         const url = `${urlAPI}/movies`;
         console.log("Request URL:", url);
-        console.log("Fetching movies with token:", token);
 
-        const response = await fetch(`${urlAPI}/movies`, {
+        const response = await fetch(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
         });
-
-        console.log("Raw Response:", response);
-        console.log("Request URL:", `${urlAPI}/movies`);
 
         if (!response.ok) {
           const errorText = await response.text();
@@ -58,9 +62,6 @@ const useFetchMovies = (token) => {
         }
 
         const data = await response.json();
-        console.log("Fetched Movies Data:", data);
-
-        // Map the API response to match the MovieCard component's expected structure
         const moviesFromApi = data.map((movie) => ({
           _id: movie._id,
           Title: movie.Title,
@@ -70,45 +71,52 @@ const useFetchMovies = (token) => {
           ImagePath: movie.ImagePath,
           Featured: movie.Featured,
         }));
-
-        console.log("Mapped Movies Data:", moviesFromApi);
         setMovies(moviesFromApi);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
+      } catch (err) {
+        console.error("Error fetching movies:", err);
+        setError("Failed to load movies. Please try again later.");
       }
     };
 
     fetchMovies();
   }, [token]);
 
-  return movies;
+  return { movies, error };
 };
 
-// MainView component
 export const MainView = () => {
   const [user, setUser] = useState(getStoredUser());
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const movies = useFetchMovies(token);
+  const { movies, error } = useFetchMovies(token);
+
+  useEffect(() => {
+    if (token && isTokenExpired(token)) {
+      console.warn("Token expired. Logging out.");
+      setToken(null);
+      localStorage.removeItem("token");
+      setUser(null);
+    }
+  }, [token]);
 
   const handleLogout = () => {
     setUser(null);
     setToken(null);
-    localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
     <BrowserRouter>
       <NavigationBar user={user} onLoggedOut={handleLogout} />
-
       <Row className="justify-content-md-center">
         <Routes>
-          {/* Home Route */}
           <Route
             path="/"
             element={
               user ? (
                 <MovieList
                   movies={movies}
+                  error={error}
                   user={user}
                   token={token}
                   onWatchlistUpdate={(updatedUser) => {
@@ -121,7 +129,6 @@ export const MainView = () => {
               )
             }
           />
-          {/* Login Route */}
           <Route
             path="/login"
             element={
@@ -139,26 +146,17 @@ export const MainView = () => {
               )
             }
           />
-          {/* Signup Route */}
           <Route path="/signup" element={<RegisterView />} />
-
-          {/* Profile Route */}
           <Route
             path="/profile"
             element={
               user ? <ProfileView user={user} /> : <Navigate to="/login" />
             }
           />
-
-          {/* Movie View Route (Dynamic URL) */}
           <Route
             path="/movies/:movieId"
             element={
-              user ? (
-                <MovieView movies={movies} />
-              ) : (
-                <Navigate to="/login" replace />
-              )
+              user ? <MovieView movies={movies} /> : <Navigate to="/login" />
             }
           />
         </Routes>
@@ -167,8 +165,15 @@ export const MainView = () => {
   );
 };
 
-// MovieList component
-const MovieList = ({ movies, user, token, onWatchlistUpdate }) => {
+const MovieList = ({ movies, error, user, token, onWatchlistUpdate }) => {
+  if (error) {
+    return <Col md={8}>{error}</Col>;
+  }
+
+  if (movies === null) {
+    return <Col md={8}>Loading movies...</Col>;
+  }
+
   if (movies.length === 0) {
     return <Col md={8}>The list is empty! Please try refreshing the page.</Col>;
   }
