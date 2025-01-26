@@ -10,7 +10,7 @@ import { NavigationBar } from "../NavigationBar/navigationBar";
 import { ProfileView } from "../ProfileView/profileView";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com/movies";
+const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
 
 // Safely retrieve the stored user
 const getStoredUser = () => {
@@ -35,6 +35,8 @@ const useFetchMovies = (token) => {
       }
 
       try {
+        const url = `${urlAPI}/movies`;
+        console.log("Request URL:", url);
         console.log("Fetching movies with token:", token);
 
         const response = await fetch(`${urlAPI}/movies`, {
@@ -47,6 +49,7 @@ const useFetchMovies = (token) => {
         });
 
         console.log("Raw Response:", response);
+        console.log("Request URL:", `${urlAPI}/movies`);
 
         if (!response.ok) {
           const errorText = await response.text();
