@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { MovieCard } from "../MovieCard/movieCard";
 import { MovieView } from "../MovieView/movieView";
 import { LoginView } from "../LoginView/loginView";
@@ -6,12 +9,19 @@ import { RegisterView } from "../RegisterView/registerView";
 import { NavigationBar } from "../NavigationBar/navigationBar";
 import { ProfileView } from "../ProfileView/profileView";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// API URL
 const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
+
+// Safely retrieve the stored user
+const getStoredUser = () => {
+  try {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  } catch (error) {
+    console.error("Error parsing stored user:", error);
+    return null;
+  }
+};
 
 // Custom hook for fetching movies
 const useFetchMovies = (token) => {
@@ -42,7 +52,6 @@ const useFetchMovies = (token) => {
 
         const data = await response.json();
 
-        // Map the API response to match the MovieCard component's expected structure
         const moviesFromApi = data.map((movie) => ({
           _id: movie._id,
           Title: movie.Title,
@@ -68,15 +77,10 @@ const useFetchMovies = (token) => {
 
 // MainView component
 export const MainView = () => {
-  // Parse user object from localStorage
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token");
-
-  const [user, setUser] = useState(storedUser || null);
-  const [token, setToken] = useState(storedToken || null);
+  const [user, setUser] = useState(getStoredUser());
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const movies = useFetchMovies(token);
 
-  // Handle user logout
   const handleLogout = () => {
     setUser(null);
     setToken(null);
@@ -89,7 +93,7 @@ export const MainView = () => {
 
       <Row className="justify-content-md-center">
         <Routes>
-          {/* Home Route - Movie List */}
+          {/* Home Route */}
           <Route
             path="/"
             element={
@@ -108,7 +112,6 @@ export const MainView = () => {
               )
             }
           />
-
           {/* Login Route */}
           <Route
             path="/login"
@@ -127,7 +130,6 @@ export const MainView = () => {
               )
             }
           />
-
           {/* Signup Route */}
           <Route path="/signup" element={<RegisterView />} />
 
