@@ -68,9 +68,10 @@ const useFetchMovies = (token) => {
 
 // MainView component
 export const MainView = () => {
-  // State variables
+  // Parse user object from localStorage
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
   const movies = useFetchMovies(token);
@@ -97,7 +98,10 @@ export const MainView = () => {
                   movies={movies}
                   user={user}
                   token={token}
-                  onWatchlistUpdate={(updatedUser) => setUser(updatedUser)}
+                  onWatchlistUpdate={(updatedUser) => {
+                    setUser(updatedUser);
+                    localStorage.setItem("user", JSON.stringify(updatedUser));
+                  }}
                 />
               ) : (
                 <Navigate to="/login" />
@@ -116,7 +120,7 @@ export const MainView = () => {
                   onLoggedIn={(user, token) => {
                     setUser(user);
                     setToken(token);
-                    localStorage.setItem("user", user);
+                    localStorage.setItem("user", JSON.stringify(user));
                     localStorage.setItem("token", token);
                   }}
                 />
