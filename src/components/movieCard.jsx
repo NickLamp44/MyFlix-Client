@@ -9,6 +9,7 @@ export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
   const handleAddToWatchlist = () => {
     if (!userId) {
       console.error("UserID is missing!");
+
       alert("Unable to add to watchlist. Please log in first.");
       return;
     }

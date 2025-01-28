@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { MovieCard } from "../MovieCard/movieCard";
-import { MovieView } from "../MovieView/movieView";
-import { LoginView } from "../LoginView/loginView";
-import { RegisterView } from "../RegisterView/registerView";
-import { NavigationBar } from "../NavigationBar/navigationBar";
-import { ProfileView } from "../ProfileView/profileView";
+import { MovieCard } from "./movieCard";
+import { MovieView } from "./movieView";
+import { LoginView } from "./loginView";
+import { RegisterView } from "./registerView";
+import { NavigationBar } from "./navigationBar";
+import { ProfileView } from "./profileView";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const urlAPI = "https://nicks-flix-364389a40fe7.herokuapp.com";
@@ -153,6 +153,7 @@ export const MainView = () => {
               user ? <ProfileView user={user} /> : <Navigate to="/login" />
             }
           />
+
           <Route
             path="/movies/:movieId"
             element={
@@ -165,6 +166,7 @@ export const MainView = () => {
   );
 };
 
+// MovieList component
 const MovieList = ({ movies, error, user, token, onWatchlistUpdate }) => {
   if (error) {
     return <Col md={8}>{error}</Col>;
