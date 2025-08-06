@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && parcel build src/index.html",
+    "vercel-build": "npm run build",
     "start": "parcel src/index.html"
   },
   "author": "",
