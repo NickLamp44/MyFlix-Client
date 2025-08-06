@@ -186,7 +186,7 @@ const MovieList = ({ movies, error, user, token, onWatchlistUpdate }) => {
         <Col className="mb-5" key={movie._id} md={3}>
           <MovieCard
             movie={movie}
-            userId={user?._id}
+            user={user}
             token={token}
             onWatchlistUpdate={onWatchlistUpdate}
           />

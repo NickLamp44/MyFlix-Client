@@ -3,42 +3,59 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
-  console.log("MovieCard Props:", movie, "UserID:", userId);
+export const MovieCard = ({ movie, user, token, onWatchlistUpdate }) => {
+  console.log("MovieCard Props:", movie, "User:", user);
 
-  const handleAddToWatchlist = () => {
-    if (!userId) {
-      console.error("UserID is missing!");
+  // Check if the movie is already in the user's watchlist
+  const isInWatchlist =
+    user?.Watchlist?.some(
+      (watchlistMovie) => watchlistMovie._id === movie._id
+    ) || false;
 
-      alert("Unable to add to watchlist. Please log in first.");
+  const handleWatchlistToggle = async () => {
+    if (!user?._id) {
+      console.error("User is missing!");
+      alert("Unable to modify watchlist. Please log in first.");
       return;
     }
 
-    const url = `https://nicks-flix-364389a40fe7.herokuapp.com/users/${userId}/watchlist/${movie._id}`;
-    console.log(`Making request to: ${url}`);
+    const url = `https://nicks-flix-364389a40fe7.herokuapp.com/users/${user._id}/watchlist/${movie._id}`;
+    const method = isInWatchlist ? "DELETE" : "POST";
+    const action = isInWatchlist ? "removed from" : "added to";
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((updatedUser) => {
-        console.log("Updated user:", updatedUser);
-        if (onWatchlistUpdate) onWatchlistUpdate(updatedUser);
-        alert(`${movie.Title} has been added to your watchlist!`);
-      })
-      .catch((error) => {
-        console.error("Error adding to watchlist:", error);
-        alert("Failed to add movie to watchlist. Please try again.");
+    console.log(`Making ${method} request to: ${url}`);
+
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `HTTP error! Status: ${response.status} - ${errorText}`
+        );
+      }
+
+      const updatedUser = await response.json();
+      console.log("Updated user:", updatedUser);
+      if (onWatchlistUpdate) onWatchlistUpdate(updatedUser);
+      alert(`${movie.Title} has been ${action} your watchlist!`);
+    } catch (error) {
+      console.error(
+        `Error ${action.split(" ")[0]}ing ${action.split(" ")[1]} watchlist:`,
+        error
+      );
+      alert(
+        `Failed to ${action.split(" ")[0]} movie ${
+          action.split(" ")[1]
+        } watchlist. Please try again.`
+      );
+    }
   };
 
   return (
@@ -55,8 +72,11 @@ export const MovieCard = ({ movie, userId, token, onWatchlistUpdate }) => {
             Find out more!
           </Button>
         </Link>
-        <Button variant="success" onClick={handleAddToWatchlist}>
-          Add to Watchlist!
+        <Button
+          variant={isInWatchlist ? "danger" : "success"}
+          onClick={handleWatchlistToggle}
+        >
+          {isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
         </Button>
       </Card.Body>
     </Card>
@@ -69,7 +89,15 @@ MovieCard.propTypes = {
     Title: PropTypes.string.isRequired,
     ImagePath: PropTypes.string,
   }).isRequired,
-  userId: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    Watchlist: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        Title: PropTypes.string.isRequired,
+      })
+    ),
+  }).isRequired,
   token: PropTypes.string.isRequired,
   onWatchlistUpdate: PropTypes.func,
 };

@@ -55,19 +55,21 @@ export const LoginView = ({ onLoggedIn }) => {
               <Card.Title className="text-center">Login</Card.Title>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formUsername" className="mb-3">
-                  <Form.Label>Username:</Form.Label>
+                  <Form.Label>Username: </Form.Label>
                   <Form.Control
                     type="text"
                     value={username}
+                    placeholder="use Test"
                     onChange={(event) => setUsername(event.target.value)}
                     required
                   />
                 </Form.Group>
                 <Form.Group controlId="formPassword" className="mb-3">
-                  <Form.Label>Password:</Form.Label>
+                  <Form.Label>Password: </Form.Label>
                   <Form.Control
                     type="password"
                     value={password}
+                    placeholder="use Test123"
                     onChange={(event) => setPassword(event.target.value)}
                     required
                   />
