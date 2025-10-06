@@ -59,13 +59,14 @@ export const MovieCard = ({ movie, user, token, onWatchlistUpdate }) => {
   };
 
   return (
-    <Card className="h-100 movie-card">
+    <Card className=" bg-body-tertiary h-100 movie-card">
       <Card.Img
         variant="top"
         src={movie.ImagePath}
         alt={`${movie.Title} Poster`}
+        className="p-2 h-75"
       />
-      <Card.Body>
+      <Card.Body className="">
         <Card.Title>{movie.Title}</Card.Title>
         <Link to={`/movies/${movie._id}`}>
           <Button variant="link" className="mb-2">

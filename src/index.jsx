@@ -6,7 +6,7 @@ import "./index.scss";
 
 const MyFlixApp = () => {
   return (
-    <Container>
+    <Container className="bg-primary-subtle">
       <MainView />
     </Container>
   );

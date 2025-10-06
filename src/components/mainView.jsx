@@ -129,6 +129,8 @@ export const MainView = () => {
               )
             }
           />
+
+          {/* Login Route */}
           <Route
             path="/login"
             element={
@@ -146,7 +148,11 @@ export const MainView = () => {
               )
             }
           />
+
+          {/* SignUp Route */}
           <Route path="/signup" element={<RegisterView />} />
+
+          {/* UserProfile Route */}
           <Route
             path="/profile"
             element={
@@ -154,6 +160,7 @@ export const MainView = () => {
             }
           />
 
+          {/* Movie Route */}
           <Route
             path="/movies/:movieId"
             element={
@@ -183,7 +190,7 @@ const MovieList = ({ movies, error, user, token, onWatchlistUpdate }) => {
   return (
     <>
       {movies.map((movie) => (
-        <Col className="mb-5" key={movie._id} md={3}>
+        <Col className="mb-5 p-5" key={movie._id} md={4}>
           <MovieCard
             movie={movie}
             user={user}
