@@ -190,7 +190,7 @@ const MovieList = ({ movies, error, user, token, onWatchlistUpdate }) => {
   return (
     <>
       {movies.map((movie) => (
-        <Col className="mb-5 p-5" key={movie._id} md={3}>
+        <Col className="mb-5 p-5" key={movie._id} md={4}>
           <MovieCard
             movie={movie}
             user={user}

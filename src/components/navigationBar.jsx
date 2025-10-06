@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => (
   <Navbar
-    className="p-3 text-primary-emphasis bg-primary border border-primary-subtle rounded-3"
+    className="p-3 text-primary-emphasis bg-primary border border-warning n  rounded-3"
     expand="lg"
   >
     <Container className="p-2">
