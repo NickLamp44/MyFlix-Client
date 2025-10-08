@@ -11,6 +11,20 @@
     "vercel-build": "npm run build",
     "start": "parcel src/index.html"
   },
+  "targets": {
+    "default": {
+      "includeNodeModules": {
+        "react": true,
+        "react-dom": true
+      },
+      "engines": {
+        "browsers": [
+          "last 2 Chrome versions",
+          "last 2 Safari versions"
+        ]
+      }
+    }
+  },
   "author": "",
   "license": "ISC",
   "description": "",
@@ -22,9 +36,9 @@
     "bootstrap": "^5.3.3",
     "lucide-react": "^0.536.0",
     "prop-types": "^15.7.2",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-bootstrap": "^2.10.6",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
     "react-router": "6.3.0",
     "react-router-dom": "6.3.0",
@@ -33,6 +47,7 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/preset-react": "^7.27.1",
+    "@parcel/runtime-react-refresh": "^2.13.3",
     "@parcel/transformer-babel": "^2.16.0",
     "@parcel/transformer-react-refresh-wrap": "^2.16.0",
     "@parcel/transformer-sass": "^2.16.0",
